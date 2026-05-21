@@ -32,7 +32,7 @@
     <!-- HEADER -->
     <div class="home-header">
       <img src="charte graphique panda'venture/log_panda'venture.png" alt="Panda'venture" class="home-logo-img" />
-      <div class="home-jep-badge">20-21 Sept 2025</div>
+      <div class="home-jep-badge">19-20 Sept 2026</div>
     </div>
 
     <div class="home-scroll">
@@ -389,7 +389,7 @@
             <thead><tr><th>#</th><th>Équipe</th><th>Score</th></tr></thead>
             <tbody id="ranking-body"></tbody>
           </table>
-          <button class="btn-primary" onclick="showSalomon()">Découvrir la collection Salomon →</button>
+          <button class="btn-primary quiz-result-cta" onclick="switchTab('photo')">Continuer → Photo &amp; Capsule ⏳</button>
         </div>
       </div>
 
@@ -496,17 +496,18 @@
   <div id="screen-capsule" class="screen">
     <div class="capsule-header">
       <button class="back-btn-flat" onclick="switchTab('photo'); showScreen('screen-stop')">← Retour</button>
-      <h2 class="capsule-title">Capsule Temporelle</h2>
+      <h2 class="capsule-title">Ma capsule Panda'venture</h2>
+      <p class="capsule-header-sub">Laisse une empreinte pour les générations futures</p>
     </div>
     <div class="capsule-body">
-      <p class="capsule-intro">Laisse un message pour les générations futures. Il sera scellé pour&nbsp;:</p>
 
+      <!-- Duration -->
+      <p class="capsule-intro">Sceller pour combien de temps ?</p>
       <div class="duration-row">
         <button class="dur-btn active" data-years="5"  onclick="selectDuration(5,  this)"><span class="dur-y">5</span><span class="dur-label">ans</span></button>
         <button class="dur-btn"        data-years="10" onclick="selectDuration(10, this)"><span class="dur-y">10</span><span class="dur-label">ans</span></button>
         <button class="dur-btn"        data-years="15" onclick="selectDuration(15, this)"><span class="dur-y">15</span><span class="dur-label">ans</span></button>
       </div>
-
       <div class="capsule-preview">
         <div id="capsule-duration-text" class="capsule-duration-text">Dans 5 ans</div>
         <div class="capsule-year-wrap">
@@ -515,8 +516,55 @@
         </div>
       </div>
 
-      <textarea id="capsule-message" class="capsule-textarea"
-        placeholder="Cher futur humain…  🌿 Que reste-t-il des espèces sauvages de notre époque ?"></textarea>
+      <!-- Questionnaire -->
+      <div class="cap-form-intro">Remplis chaque champ avant de sceller — retrouve-les à l'ouverture ✉️</div>
+
+      <div class="cap-field">
+        <label class="cap-label">Notre équipe était composée de</label>
+        <input id="cap-team" class="cap-input" type="text" placeholder="Marie, Paul, Léa…" />
+      </div>
+
+      <div class="cap-field">
+        <label class="cap-label">Nous avons visité</label>
+        <input id="cap-monument" class="cap-input" type="text" readonly />
+      </div>
+
+      <div class="cap-field">
+        <label class="cap-label cap-required">Ce monument nous a le plus marqué car</label>
+        <textarea id="cap-marked" class="cap-textarea" rows="2" placeholder="…"></textarea>
+      </div>
+
+      <div class="cap-field">
+        <label class="cap-label">Une chose apprise sur une espèce prioritaire WWF</label>
+        <textarea id="cap-species-learned" class="cap-textarea" rows="2" placeholder="…"></textarea>
+      </div>
+
+      <div class="cap-field">
+        <label class="cap-label">Quand nous recevrons cette capsule, nous espérons que cette espèce</label>
+        <textarea id="cap-species-hope" class="cap-textarea" rows="2" placeholder="…"></textarea>
+      </div>
+
+      <div class="cap-field">
+        <label class="cap-label cap-required" id="cap-memory-label">Dans 5 ans, nous aimerions nous souvenir de</label>
+        <textarea id="cap-memory" class="cap-textarea" rows="2" placeholder="…"></textarea>
+      </div>
+
+      <div class="cap-field">
+        <label class="cap-label cap-required">Une phrase pour nous souvenir de la Panda'venture</label>
+        <textarea id="cap-phrase" class="cap-textarea" rows="2" placeholder="…"></textarea>
+      </div>
+
+      <div class="cap-field">
+        <label class="cap-label">L'empreinte que nous voulons laisser pour plus tard</label>
+        <textarea id="cap-footprint" class="cap-textarea" rows="2" placeholder="…"></textarea>
+      </div>
+
+      <div class="cap-field">
+        <label class="cap-label">Une chose à transmettre à notre entourage</label>
+        <textarea id="cap-transmit" class="cap-textarea" rows="2" placeholder="…"></textarea>
+      </div>
+
+      <p class="cap-form-legal">Merci d'avoir laissé votre empreinte avec la Panda'venture. À vous de redécouvrir ce souvenir dans quelques années 🌿</p>
 
       <button class="btn-primary capsule-seal-btn" onclick="sealCapsule()">
         🔒 Sceller ma capsule
@@ -524,19 +572,12 @@
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════
-       SEALED
-  ══════════════════════════════════════════════════ -->
-  <div id="screen-sealed" class="screen">
-    <div class="sealed-inner">
-      <div id="sealed-emoji" class="sealed-emoji"></div>
-      <h2 class="sealed-title">Capsule scellée !</h2>
-      <p class="sealed-text">
-        Ta capsule pour <strong id="sealed-species"></strong> s'ouvrira en<br>
-        <span id="sealed-year" class="sealed-year"></span>
-      </p>
-      <p class="sealed-sub">Elle est sauvegardée sur cet appareil.<br>À retrouver dans quelques années… 🌱</p>
-      <button class="btn-primary" onclick="continueToCapsuleEnd()">Continuer →</button>
+  <!-- Sealed celebration overlay (replaces screen-sealed) -->
+  <div id="capsule-sealed-anim" class="capsule-sealed-anim">
+    <div class="csa-inner">
+      <div class="csa-lock">🔒</div>
+      <div class="csa-title">Capsule scellée !</div>
+      <div class="csa-sub">Direction le jeu concours Salomon…</div>
     </div>
   </div>
 
@@ -656,7 +697,7 @@
 
 </div><!-- /#app -->
 
-<script src="data.js?v=6"></script>
-<script src="app.js?v=6"></script>
+<script src="data.js?v=7"></script>
+<script src="app.js?v=7"></script>
 </body>
 </html>

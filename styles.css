@@ -1148,3 +1148,83 @@ html, body { height: 100%; overflow: hidden; font-family: var(--font-ui); backgr
 .capsule-lock-item.unlocked .lock-check::before { content: '✅'; }
 .capsule-teaser-btn { flex-shrink: 0; }
 .capsule-teaser-btn:disabled { opacity: 0.38; cursor: not-allowed; transform: none !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   CAPSULE FORM — questionnaire
+═══════════════════════════════════════════════════════════════ */
+.capsule-header-sub {
+  font-size: 13px; color: rgba(255,255,255,0.45); margin-top: 4px; line-height: 1.5;
+}
+.cap-form-intro {
+  font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6;
+  background: rgba(255,255,255,0.07); border-radius: var(--radius-sm);
+  padding: 12px 14px; border-left: 3px solid rgba(255,255,255,0.2);
+}
+.cap-field {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.cap-label {
+  font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.7);
+  line-height: 1.45; letter-spacing: 0.2px;
+}
+.cap-required::after {
+  content: ' *'; color: var(--wwf-yellow); font-weight: 800;
+}
+.cap-input, .cap-textarea {
+  width: 100%; padding: 12px 14px;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-sm);
+  font-size: 14px; font-family: var(--font-ui);
+  color: var(--white); background: rgba(255,255,255,0.08);
+  outline: none; resize: none; line-height: 1.55;
+  transition: border-color var(--t), background var(--t);
+  -webkit-appearance: none;
+}
+.cap-input:focus, .cap-textarea:focus {
+  border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.12);
+}
+.cap-input::placeholder, .cap-textarea::placeholder { color: rgba(255,255,255,0.28); }
+.cap-input[readonly] { opacity: 0.65; cursor: default; }
+.cap-input.shake, .cap-textarea.shake { animation: shake 0.4s ease; }
+.cap-form-legal {
+  font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.65; text-align: center;
+  padding-top: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SEALED CELEBRATION OVERLAY
+═══════════════════════════════════════════════════════════════ */
+.capsule-sealed-anim {
+  position: fixed; inset: 0; background: var(--black);
+  z-index: 500; display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(.4,0,.2,1);
+}
+.capsule-sealed-anim.show { opacity: 1; pointer-events: all; }
+.csa-inner {
+  display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center;
+  padding: 32px;
+}
+.csa-lock {
+  font-size: 80px;
+  animation: csa-lock-pop 0.65s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes csa-lock-pop {
+  from { transform: scale(0) rotate(-20deg); opacity: 0; }
+  to   { transform: scale(1) rotate(0);      opacity: 1; }
+}
+.csa-title {
+  font-family: var(--font-display); font-size: 34px; color: var(--white); line-height: 1.15;
+  animation: csa-fadein 0.5s ease 0.3s both;
+}
+.csa-sub {
+  font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.6;
+  animation: csa-fadein 0.5s ease 0.55s both;
+}
+@keyframes csa-fadein {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* quiz result CTA */
+.quiz-result-cta { margin-top: 4px; }

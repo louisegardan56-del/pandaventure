@@ -937,6 +937,13 @@ function showCapsule() {
   document.querySelectorAll('.dur-btn').forEach(b => b.classList.remove('active'));
   document.querySelector('.dur-btn[data-years="5"]')?.classList.add('active');
   updateCapsulePreview();
+
+  // Auto-fill static fields
+  const teamEl     = document.getElementById('cap-team');
+  const monumentEl = document.getElementById('cap-monument');
+  if (teamEl     && teamMembers)              teamEl.value     = teamMembers;
+  if (monumentEl && currentStop?.monument)    monumentEl.value = currentStop.monument;
+
   showScreen('screen-capsule');
 }
 
@@ -948,37 +955,69 @@ function selectDuration(years, btn) {
 }
 
 function updateCapsulePreview() {
-  const year = new Date().getFullYear() + capsuleYears;
-  document.getElementById('capsule-year-display').textContent    = year;
-  document.getElementById('capsule-duration-text').textContent   =
-    `Dans ${capsuleYears} an${capsuleYears > 1 ? 's' : ''}`;
+  const year   = new Date().getFullYear() + capsuleYears;
+  const label  = `Dans ${capsuleYears} an${capsuleYears > 1 ? 's' : ''}`;
+  document.getElementById('capsule-year-display').textContent  = year;
+  document.getElementById('capsule-duration-text').textContent = label;
+  // Update "Dans X ans" memory label
+  const memLabel = document.getElementById('cap-memory-label');
+  if (memLabel) memLabel.textContent = `Dans ${capsuleYears} an${capsuleYears > 1 ? 's' : ''}, nous aimerions nous souvenir de`;
 }
 
 function sealCapsule() {
-  const msg = document.getElementById('capsule-message').value.trim();
-  if (!msg) { document.getElementById('capsule-message').focus(); return; }
+  // Collect all fields
+  const marked  = document.getElementById('cap-marked')?.value.trim()  || '';
+  const memory  = document.getElementById('cap-memory')?.value.trim()  || '';
+  const phrase  = document.getElementById('cap-phrase')?.value.trim()  || '';
 
+  // Require the 3 starred fields
+  if (!marked) {
+    const el = document.getElementById('cap-marked');
+    el.focus(); el.classList.add('shake'); setTimeout(() => el.classList.remove('shake'), 500);
+    return;
+  }
+  if (!memory) {
+    const el = document.getElementById('cap-memory');
+    el.focus(); el.classList.add('shake'); setTimeout(() => el.classList.remove('shake'), 500);
+    return;
+  }
+  if (!phrase) {
+    const el = document.getElementById('cap-phrase');
+    el.focus(); el.classList.add('shake'); setTimeout(() => el.classList.remove('shake'), 500);
+    return;
+  }
+
+  // Save full capsule to localStorage
   const capsules = JSON.parse(localStorage.getItem('pv_capsules') || '[]');
   capsules.push({
-    stop:      currentStop.id,
-    monument:  currentStop.monument,
-    species:   currentStop.species,
-    name:      playerName,
-    message:   msg,
-    years:     capsuleYears,
-    openYear:  new Date().getFullYear() + capsuleYears,
-    date:      Date.now()
+    stop:            currentStop.id,
+    monument:        currentStop.monument,
+    species:         currentStop.species,
+    name:            playerName,
+    team:            document.getElementById('cap-team')?.value.trim()           || teamMembers,
+    marked,
+    speciesLearned:  document.getElementById('cap-species-learned')?.value.trim() || '',
+    speciesHope:     document.getElementById('cap-species-hope')?.value.trim()    || '',
+    memory,
+    phrase,
+    footprint:       document.getElementById('cap-footprint')?.value.trim()       || '',
+    transmit:        document.getElementById('cap-transmit')?.value.trim()        || '',
+    years:           capsuleYears,
+    openYear:        new Date().getFullYear() + capsuleYears,
+    date:            Date.now()
   });
   localStorage.setItem('pv_capsules', JSON.stringify(capsules));
 
-  const openYear = new Date().getFullYear() + capsuleYears;
-  document.getElementById('sealed-year').textContent    = openYear;
-  document.getElementById('sealed-species').textContent = currentStop.species;
-  document.getElementById('sealed-emoji').textContent   = currentStop.emoji;
-  showScreen('screen-sealed');
+  // Show sealed animation then transition to contest
+  const anim = document.getElementById('capsule-sealed-anim');
+  anim.classList.add('show');
+  setTimeout(() => {
+    anim.classList.remove('show');
+    showContest();
+  }, 2200);
 }
 
-function continueToCapsuleEnd() { showSalomon(); }
+function continueToCapsuleEnd() { showContest(); }
 
 
 /* ── Salomon ────────────────────────────────────────────────────────── */
