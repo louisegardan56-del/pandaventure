@@ -90,90 +90,111 @@
         <div class="home-map-card">
           <svg id="paris-map-svg" viewBox="60 10 210 210" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" class="paris-svg">
             <defs>
-              <radialGradient id="mapbg" cx="50%" cy="45%" r="70%">
-                <stop offset="0%" stop-color="#EAF6F2"/>
-                <stop offset="100%" stop-color="#D0EAE4"/>
-              </radialGradient>
               <filter id="pin-shadow" x="-30%" y="-30%" width="160%" height="160%">
                 <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.3)"/>
               </filter>
             </defs>
 
-            <!-- Background -->
-            <rect x="60" y="10" width="210" height="210" fill="url(#mapbg)" rx="0"/>
+            <!-- ── FOND CRÈME ─────────────────────────────── -->
+            <rect x="60" y="10" width="210" height="210" fill="#F8F3EB"/>
 
-            <!-- Bois de Boulogne (west) -->
-            <ellipse cx="90" cy="98" rx="13" ry="22" fill="#5DB85A" opacity="0.75"/>
-            <ellipse cx="90" cy="98" rx="8" ry="14" fill="#7FD47A" opacity="0.55"/>
+            <!-- ── BOIS DE BOULOGNE (ouest, hors Paris) ───── -->
+            <ellipse cx="75" cy="100" rx="13" ry="23" fill="#5CA04E"/>
+            <ellipse cx="72" cy="94"  rx="8"  ry="13" fill="#7DC46D" opacity="0.85"/>
+            <ellipse cx="79" cy="112" rx="7"  ry="9"  fill="#7DC46D" opacity="0.65"/>
+            <!-- Arbres Boulogne -->
+            <circle cx="68" cy="94"  r="5" fill="#4A9040"/>
+            <circle cx="76" cy="88"  r="4" fill="#5CAE50"/>
+            <circle cx="82" cy="108" r="4" fill="#4A9040"/>
 
-            <!-- Bois de Vincennes (east) -->
-            <ellipse cx="250" cy="116" rx="17" ry="13" fill="#5DB85A" opacity="0.75"/>
-            <ellipse cx="250" cy="116" rx="10" ry="7" fill="#7FD47A" opacity="0.55"/>
+            <!-- ── BOIS DE VINCENNES (est, hors Paris) ─────── -->
+            <ellipse cx="261" cy="114" rx="17" ry="12" fill="#5CA04E"/>
+            <ellipse cx="257" cy="109" rx="9"  ry="6"  fill="#7DC46D" opacity="0.85"/>
+            <ellipse cx="265" cy="121" rx="8"  ry="5"  fill="#7DC46D" opacity="0.65"/>
+            <!-- Arbres Vincennes -->
+            <circle cx="256" cy="108" r="4" fill="#4A9040"/>
+            <circle cx="264" cy="106" r="4" fill="#5CAE50"/>
+            <circle cx="268" cy="118" r="3" fill="#4A9040"/>
 
-            <!-- ZONES — flat tropical colors -->
-            <!-- Zone nord-ouest: 8e,16e,17e — mango warm -->
-            <path d="M96,68 Q106,48 136,40 Q150,37 160,39 L150,60 Q138,68 122,73 Q108,76 96,68 Z"
-                  fill="#FFCA84" stroke="#fff" stroke-width="1.2" stroke-opacity="0.7"/>
+            <!-- ── PARIS — silhouette principale ─────────────── -->
+            <!-- Ombre douce -->
+            <path d="M 108,42 Q 138,26 168,26 Q 198,26 220,37 Q 244,49 256,67 Q 268,84 267,106 Q 267,126 258,145 Q 249,164 232,175 Q 214,186 190,189 Q 166,193 142,186 Q 118,179 100,167 Q 82,155 72,136 Q 62,117 66,97 Q 70,77 84,63 Q 94,52 108,42 Z"
+                  fill="rgba(0,0,0,0.08)" transform="translate(1.5,2)"/>
+            <!-- Aplat pêche chaud -->
+            <path id="paris-shape" d="M 108,42 Q 138,26 168,26 Q 198,26 220,37 Q 244,49 256,67 Q 268,84 267,106 Q 267,126 258,145 Q 249,164 232,175 Q 214,186 190,189 Q 166,193 142,186 Q 118,179 100,167 Q 82,155 72,136 Q 62,117 66,97 Q 70,77 84,63 Q 94,52 108,42 Z"
+                  fill="#EFC28C" stroke="#D4A060" stroke-width="1.2"/>
+            <!-- Cercle des Grands Boulevards (texture interne) -->
+            <path d="M 134,65 Q 168,56 202,68 Q 224,79 224,105 Q 224,131 202,145 Q 180,157 165,156 Q 148,155 128,143 Q 106,129 108,105 Q 108,81 134,65 Z"
+                  fill="none" stroke="rgba(170,108,45,0.13)" stroke-width="1.3"/>
+            <!-- Axes principaux -->
+            <line x1="168" y1="42"  x2="168" y2="186" stroke="rgba(170,108,45,0.11)" stroke-width="1"/>
+            <line x1="76"  y1="108" x2="262" y2="108" stroke="rgba(170,108,45,0.11)" stroke-width="1"/>
 
-            <!-- Zone nord: 18e,9e,10e — coral rose -->
-            <path d="M160,39 Q178,33 202,40 Q220,46 232,63 Q216,60 198,58 Q182,54 163,56 Q153,52 150,60 Q155,48 160,39 Z"
-                  fill="#FF9878" stroke="#fff" stroke-width="1.2" stroke-opacity="0.7"/>
+            <!-- ── PARCS INTÉRIEURS — taches roses ────────────── -->
+            <!-- Père Lachaise -->
+            <ellipse cx="232" cy="91"  rx="13" ry="10" fill="#E08898" opacity="0.7"/>
+            <circle  cx="228" cy="88"  r="4"           fill="#C86878" opacity="0.5"/>
+            <!-- Buttes-Chaumont -->
+            <ellipse cx="218" cy="63"  rx="10" ry="7"  fill="#E08898" opacity="0.6"/>
+            <!-- Parc Monceau -->
+            <ellipse cx="148" cy="61"  rx="9"  ry="7"  fill="#EAA0B0" opacity="0.55"/>
+            <!-- Jardin du Luxembourg -->
+            <ellipse cx="158" cy="147" rx="12" ry="8"  fill="#E08898" opacity="0.6"/>
+            <!-- Parc Montsouris -->
+            <ellipse cx="180" cy="167" rx="10" ry="7"  fill="#EAA0B0" opacity="0.55"/>
 
-            <!-- Zone est: 20e,11e,12e — terra cotta -->
-            <path d="M230,63 Q244,76 248,99 Q247,121 240,141 Q228,153 212,157 Q220,132 218,110 Q220,88 230,63 Z"
-                  fill="#EFA088" stroke="#fff" stroke-width="1.2" stroke-opacity="0.7"/>
+            <!-- ── CLUSTERS D'ARBRES DÉCORATIFS ───────────────── -->
+            <!-- NO Batignolles/Monceau -->
+            <circle cx="131" cy="57"  r="7"  fill="#6BBE5A"/>
+            <circle cx="142" cy="53"  r="5"  fill="#59AA48"/>
+            <circle cx="123" cy="53"  r="5"  fill="#84CF72"/>
+            <!-- NE Belleville -->
+            <circle cx="207" cy="54"  r="7"  fill="#6BBE5A"/>
+            <circle cx="217" cy="50"  r="5"  fill="#59AA48"/>
+            <circle cx="200" cy="50"  r="4"  fill="#84CF72"/>
+            <!-- O Trocadéro -->
+            <circle cx="116" cy="90"  r="6"  fill="#6BBE5A"/>
+            <circle cx="106" cy="86"  r="5"  fill="#59AA48"/>
+            <circle cx="124" cy="85"  r="4"  fill="#84CF72"/>
+            <!-- Champ-de-Mars -->
+            <circle cx="136" cy="116" r="5"  fill="#6BBE5A" opacity="0.8"/>
+            <circle cx="127" cy="110" r="4"  fill="#59AA48" opacity="0.8"/>
+            <!-- S Montrouge -->
+            <circle cx="134" cy="162" r="6"  fill="#6BBE5A"/>
+            <circle cx="124" cy="157" r="4"  fill="#59AA48"/>
+            <!-- SE Charenton/Nation -->
+            <circle cx="218" cy="150" r="6"  fill="#6BBE5A"/>
+            <circle cx="228" cy="146" r="5"  fill="#59AA48"/>
+            <circle cx="210" cy="156" r="4"  fill="#84CF72"/>
+            <!-- E bordure Vincennes -->
+            <circle cx="246" cy="130" r="5"  fill="#6BBE5A"/>
+            <circle cx="252" cy="124" r="4"  fill="#59AA48"/>
+            <!-- N Montmartre -->
+            <circle cx="173" cy="50"  r="5"  fill="#6BBE5A"/>
+            <circle cx="181" cy="46"  r="4"  fill="#59AA48"/>
 
-            <!-- Zone sud-est: 13e,14e — lilac mauve -->
-            <path d="M212,157 Q190,166 164,163 Q167,147 170,132 Q188,130 202,120 Q210,115 218,110 Q214,131 212,157 Z"
-                  fill="#C4A0D5" stroke="#fff" stroke-width="1.2" stroke-opacity="0.7"/>
-
-            <!-- Zone sud: 5e,6e — sky blue -->
-            <path d="M164,163 Q144,168 118,158 Q107,149 105,136 Q112,126 126,120 Q140,116 152,120 Q158,124 163,132 Z"
-                  fill="#A0BCE8" stroke="#fff" stroke-width="1.2" stroke-opacity="0.7"/>
-
-            <!-- Zone ouest-sud: 15e,7e — sage mint -->
-            <path d="M105,136 Q93,124 90,110 Q90,97 94,85 Q107,84 114,90 Q120,100 122,115 Q118,126 112,134 Z"
-                  fill="#98D4A8" stroke="#fff" stroke-width="1.2" stroke-opacity="0.7"/>
-
-            <!-- Zone centrale: 1er–4e,7e,8e — golden -->
-            <path d="M130,78 Q148,64 168,62 Q184,62 196,70 Q207,80 204,93 Q198,105 186,110 Q172,115 158,111 Q144,106 134,96 Q128,88 130,78 Z"
-                  fill="#FFE070" stroke="#fff" stroke-width="1.4" stroke-opacity="0.8"/>
-
-            <!-- Central glow -->
-            <path d="M140,80 Q154,70 168,68 Q180,68 190,76 Q198,84 196,94 Q190,104 178,108 Q166,112 154,108 Q142,102 140,92 Z"
-                  fill="#FFD030" opacity="0.3"/>
-
-            <!-- Périphérique ring -->
-            <path d="M96,68 Q97,48 118,40 Q145,33 178,34 Q210,35 232,51 Q250,66 251,93 Q255,116 247,139 Q239,159 219,166 Q195,173 167,171 Q139,170 113,159 Q88,145 83,121 Q78,100 84,80 Q88,72 96,68 Z"
-                  fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-dasharray="6,3.5"/>
-
-            <!-- Seine — tropical teal -->
-            <path d="M88,104 Q108,99 128,101 Q148,103 168,106 Q186,108 205,108 Q223,108 240,112 Q254,117 268,124"
-                  fill="none" stroke="#28B4CC" stroke-width="6" stroke-linecap="round" opacity="0.9"/>
-            <!-- Seine shimmer -->
-            <path d="M88,104 Q108,99 128,101 Q148,103 168,106 Q186,108 205,108 Q223,108 240,112 Q254,117 268,124"
-                  fill="none" stroke="#7CE8F0" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+            <!-- ── SEINE ─────────────────────────────────────── -->
+            <!-- Corps du fleuve -->
+            <path d="M 260,108 Q 243,103 224,105 Q 206,107 192,108 Q 176,109 159,106 Q 142,103 125,106 Q 108,109 92,114 Q 79,118 68,124"
+                  fill="none" stroke="#4DBDB7" stroke-width="8.5" stroke-linecap="round"/>
+            <!-- Reflet lumineux -->
+            <path d="M 260,108 Q 243,103 224,105 Q 206,107 192,108 Q 176,109 159,106 Q 142,103 125,106 Q 108,109 92,114 Q 79,118 68,124"
+                  fill="none" stroke="#88D8D4" stroke-width="3.5" stroke-linecap="round" opacity="0.6"/>
 
             <!-- Île de la Cité -->
-            <ellipse cx="202" cy="108" rx="10" ry="4.5" fill="#28B4CC" opacity="0.7" stroke="#fff" stroke-width="0.8"/>
-            <!-- Île St-Louis -->
-            <ellipse cx="215" cy="110" rx="7" ry="3.5" fill="#28B4CC" opacity="0.55" stroke="#fff" stroke-width="0.7"/>
+            <ellipse cx="192" cy="108" rx="11" ry="5"   fill="#4DBDB7" stroke="#fff" stroke-width="1.5"/>
+            <!-- Île Saint-Louis -->
+            <ellipse cx="206" cy="110" rx="8"  ry="3.5" fill="#4DBDB7" opacity="0.75" stroke="#fff" stroke-width="1"/>
 
-            <!-- Axes (routes blanches) -->
-            <line x1="168" y1="40" x2="168" y2="162" stroke="rgba(255,255,255,0.6)" stroke-width="1.2" stroke-dasharray="4,3"/>
-            <line x1="88" y1="97" x2="265" y2="97" stroke="rgba(255,255,255,0.6)" stroke-width="1.2" stroke-dasharray="4,3"/>
-            <!-- Champs-Élysées diagonal -->
-            <line x1="118" y1="81" x2="200" y2="90" stroke="rgba(255,255,255,0.5)" stroke-width="0.9" stroke-dasharray="3,3"/>
+            <!-- ── ROSE DES VENTS ──────────────────────────── -->
+            <circle cx="252" cy="26" r="9"   fill="rgba(255,255,255,0.9)" stroke="rgba(170,115,50,0.25)" stroke-width="0.8"/>
+            <text x="252" y="30" text-anchor="middle" font-size="6.5" fill="#8B5E2A" font-weight="800" font-family="sans-serif">N</text>
+            <line x1="252" y1="18" x2="252" y2="21" stroke="#8B5E2A" stroke-width="1.5" stroke-linecap="round"/>
 
-            <!-- Compass -->
-            <circle cx="252" cy="27" r="10" fill="rgba(255,255,255,0.85)" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
-            <text x="252" y="31" text-anchor="middle" font-size="7.5" fill="rgba(50,35,15,0.55)" font-weight="800">N</text>
-            <line x1="252" y1="19" x2="252" y2="22" stroke="rgba(50,35,15,0.35)" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Label PARIS -->
+            <text x="165" y="208" text-anchor="middle" font-size="8.5" font-weight="800" fill="rgba(140,90,35,0.16)" letter-spacing="5" font-family="sans-serif">PARIS</text>
 
-            <!-- PARIS label -->
-            <text x="168" y="192" text-anchor="middle" font-size="9.5" font-weight="800" fill="rgba(50,35,15,0.2)" letter-spacing="5">PARIS</text>
-
-            <!-- Pins injected by JS -->
+            <!-- Pins injectés par JS -->
           </svg>
         </div>
       </div>
@@ -697,7 +718,7 @@
 
 </div><!-- /#app -->
 
-<script src="data.js?v=8"></script>
-<script src="app.js?v=8"></script>
+<script src="data.js?v=9"></script>
+<script src="app.js?v=9"></script>
 </body>
 </html>
