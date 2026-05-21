@@ -286,60 +286,44 @@
       </div>
     </div>
 
-    <!-- Tabs -->
+    <!-- Tabs — Quiz en premier -->
     <div class="tabs-bar">
-      <button class="tab-btn active" data-tab="photo" onclick="switchTab('photo')">📸 Photo</button>
-      <button class="tab-btn"        data-tab="quiz"  onclick="switchTab('quiz')">🧠 Quiz</button>
+      <button class="tab-btn active" data-tab="quiz"  onclick="switchTab('quiz')">🧠 Quiz</button>
+      <button class="tab-btn"        data-tab="photo" onclick="switchTab('photo')">📸 Photo</button>
       <button class="tab-btn"        data-tab="wwf"   onclick="switchTab('wwf')">🌿 WWF</button>
     </div>
 
     <!-- Tab panels -->
     <div class="tabs-content">
 
-      <!-- PHOTO TAB -->
-      <div id="tab-photo" class="tab-panel active">
+      <!-- QUIZ TAB — en premier -->
+      <div id="tab-quiz" class="tab-panel active">
 
-        <!-- GPS Photo Challenge -->
-        <div id="photo-challenge" class="photo-challenge-card">
-          <div class="challenge-header">
-            <div class="challenge-icon-wrap">📍</div>
-            <div>
-              <div class="challenge-tag">DÉFI PHOTO</div>
-              <div class="challenge-title">Allez au panneau</div>
+        <!-- Écran d'intro quiz -->
+        <div id="quiz-intro" class="quiz-intro">
+          <div class="quiz-intro-eyebrow">QUIZ × SALOMON</div>
+          <h2 class="quiz-intro-title" id="quiz-intro-monument"></h2>
+          <div class="quiz-intro-stats">
+            <div class="quiz-stat">
+              <span id="quiz-intro-questions" class="quiz-stat-num"></span>
+              <span class="quiz-stat-label">questions</span>
+            </div>
+            <div class="quiz-stat-divider"></div>
+            <div class="quiz-stat">
+              <span id="quiz-intro-pts" class="quiz-stat-num"></span>
+              <span class="quiz-stat-label">pts max</span>
             </div>
           </div>
-          <p class="challenge-desc">Rendez-vous devant le panneau Panda'venture et placez-vous sur les empreintes.</p>
-          <div id="challenge-status" class="challenge-status"></div>
-          <button class="btn-primary" id="challenge-gps-btn" onclick="verifyLocation()">
-            📍 Je suis devant le panneau
-          </button>
+          <div class="quiz-intro-types">
+            <span class="quiz-type-pill">Choix multiple</span>
+            <span class="quiz-type-pill">Vrai / Faux</span>
+            <span class="quiz-type-pill">Estimation</span>
+            <span class="quiz-type-pill">Classement</span>
+          </div>
+          <p class="quiz-intro-sub">Les 3 meilleures équipes remportent chacune une paire Salomon × WWF</p>
+          <button class="btn-primary quiz-intro-btn" onclick="startQuizNow()">Lancer le quiz →</button>
         </div>
-
-        <!-- Photo done indicator (hidden initially) -->
-        <div id="photo-done-badge" class="photo-done-badge hidden">
-          <span class="done-check">✅</span>
-          <span>Défi photo accompli !</span>
-        </div>
-
-        <!-- Species info -->
-        <div class="photo-species-header">
-          <span id="photo-species-emoji" class="photo-species-emoji"></span>
-          <span id="photo-species-name"  class="photo-species-name"></span>
-        </div>
-        <p id="photo-fact" class="photo-fact"></p>
-
-        <!-- Capsule button — locked until quiz + photo done -->
-        <button class="capsule-btn btn-secondary" id="capsule-btn" onclick="tryOpenCapsule()">
-          🔒 Capsule temporelle
-        </button>
-        <div id="capsule-lock-msg" class="capsule-lock-msg">
-          Complète le quiz et le défi photo pour débloquer
-        </div>
-      </div>
-
-      <!-- QUIZ TAB -->
-      <div id="tab-quiz" class="tab-panel">
-        <div id="quiz-question-block">
+        <div id="quiz-question-block" class="hidden">
 
           <!-- Progress -->
           <div class="quiz-prog-wrap">
@@ -408,6 +392,66 @@
           <button class="btn-primary" onclick="showSalomon()">Découvrir la collection Salomon →</button>
         </div>
       </div>
+
+      <!-- PHOTO TAB -->
+      <div id="tab-photo" class="tab-panel">
+
+        <!-- Species header -->
+        <div class="photo-species-header">
+          <span id="photo-species-emoji" class="photo-species-emoji"></span>
+          <div id="photo-species-name" class="photo-species-name"></div>
+        </div>
+
+        <!-- Anecdote -->
+        <p id="photo-fact" class="photo-fact"></p>
+
+        <!-- GPS Challenge card -->
+        <div id="photo-challenge" class="photo-challenge-card">
+          <div class="challenge-header">
+            <div class="challenge-icon-wrap">📍</div>
+            <div>
+              <div class="challenge-tag">DÉFI PHOTO</div>
+              <div class="challenge-title">Trouve le panneau !</div>
+            </div>
+          </div>
+          <p class="challenge-desc">Repère le panneau Panda'venture près de toi, place-toi dessus et prends une photo souvenir.</p>
+          <div id="challenge-status" class="challenge-status"></div>
+          <button id="challenge-gps-btn" class="btn-primary btn-sm" style="margin-top:4px" onclick="verifyLocation()">📍 Je suis devant le panneau</button>
+        </div>
+
+        <!-- Photo done badge -->
+        <div id="photo-done-badge" class="photo-done-badge hidden">
+          <span class="done-check">✅</span>
+          <span>Défi photo validé !</span>
+        </div>
+
+        <!-- ════ CAPSULE TEASER ════ -->
+        <div class="capsule-teaser">
+          <div class="capsule-teaser-shine"></div>
+          <div class="capsule-teaser-tag">⏳ Capsule Temporelle</div>
+          <div class="capsule-teaser-title">Laisse un message<br>pour les générations futures</div>
+          <div class="capsule-teaser-year">2031</div>
+          <p class="capsule-teaser-desc">Scelle tes mots jusqu'en 2031 — pour ceux qui hériteront de notre planète. À ouvrir si l'espèce existe encore.</p>
+
+          <!-- Lock checklist -->
+          <div class="capsule-teaser-locks">
+            <div class="capsule-lock-item" id="capsule-lock-quiz">
+              <span class="lock-check"></span>
+              <span>Terminer le quiz</span>
+            </div>
+            <div class="capsule-lock-item" id="capsule-lock-photo">
+              <span class="lock-check"></span>
+              <span>Valider le défi photo</span>
+            </div>
+          </div>
+
+          <button id="capsule-btn" class="btn-primary capsule-teaser-btn" onclick="tryOpenCapsule()" disabled>
+            🔒 Capsule temporelle
+          </button>
+          <div id="capsule-lock-msg" class="capsule-lock-msg hidden"></div>
+        </div>
+
+      </div><!-- /tab-photo -->
 
       <!-- WWF TAB -->
       <div id="tab-wwf" class="tab-panel">
@@ -612,7 +656,7 @@
 
 </div><!-- /#app -->
 
-<script src="data.js?v=5"></script>
-<script src="app.js?v=5"></script>
+<script src="data.js?v=6"></script>
+<script src="app.js?v=6"></script>
 </body>
 </html>

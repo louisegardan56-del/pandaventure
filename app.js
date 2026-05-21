@@ -4,7 +4,7 @@
 
 /* ── State ─────────────────────────────────────────────────────────── */
 let currentStop   = null;
-let currentTab    = 'photo';
+let currentTab    = 'quiz';
 
 // Quiz
 let quizIndex     = 0;
@@ -277,7 +277,7 @@ function openStop(stop) {
   document.getElementById('stop-slogan').textContent   = stop.slogan;
   document.getElementById('stop-emoji-hero').textContent = stop.emoji;
 
-  switchTab('photo');
+  switchTab('quiz');
   showScreen('screen-stop');
 }
 
@@ -483,22 +483,28 @@ function updateCapsuleBtn() {
   const stop = currentStop;
   if (!stop) return;
 
-  const btn     = document.getElementById('capsule-btn');
-  const lockMsg = document.getElementById('capsule-lock-msg');
-  const qDone   = quizDone[stop.id];
-  const pDone   = photoDone[stop.id];
+  const btn       = document.getElementById('capsule-btn');
+  const lockMsg   = document.getElementById('capsule-lock-msg');
+  const lockQuiz  = document.getElementById('capsule-lock-quiz');
+  const lockPhoto = document.getElementById('capsule-lock-photo');
+  const qDone     = quizDone[stop.id];
+  const pDone     = photoDone[stop.id];
 
   if (!btn) return;
 
+  // Update individual checklist rows in teaser card
+  if (lockQuiz)  lockQuiz.className  = `capsule-lock-item${qDone ? ' unlocked' : ''}`;
+  if (lockPhoto) lockPhoto.className = `capsule-lock-item${pDone ? ' unlocked' : ''}`;
+
   if (qDone && pDone) {
-    btn.disabled     = false;
+    btn.disabled       = false;
     btn.style.opacity  = '1';
     btn.style.cursor   = 'pointer';
     btn.textContent    = '⏳ Créer ma capsule temporelle';
     if (lockMsg) lockMsg.classList.add('hidden');
   } else {
-    btn.disabled     = true;
-    btn.style.opacity  = '0.45';
+    btn.disabled       = true;
+    btn.style.opacity  = '0.38';
     btn.style.cursor   = 'not-allowed';
     btn.textContent    = '🔒 Capsule temporelle';
     if (lockMsg) {
@@ -530,13 +536,42 @@ function initQuiz() {
   const stop = currentStop;
   if (!stop) return;
 
-  quizIndex    = 0;
-  quizScorePts = 0;
-  quizAnswered = false;
+  const introEl   = document.getElementById('quiz-intro');
+  const blockEl   = document.getElementById('quiz-question-block');
+  const resultEl  = document.getElementById('quiz-result');
+
+  // If already completed — show result only
+  if (quizDone[stop.id]) {
+    introEl.classList.add('hidden');
+    blockEl.classList.add('hidden');
+    resultEl.classList.add('show');
+    return;
+  }
+
+  // Fill intro screen meta
+  const totalPts = stop.quiz.reduce((s, q) => s + q.points, 0);
+  document.getElementById('quiz-intro-monument').textContent  = stop.monument;
+  document.getElementById('quiz-intro-questions').textContent = stop.quiz.length;
+  document.getElementById('quiz-intro-pts').textContent       = totalPts;
+
+  // Show intro, hide question block & result
+  introEl.classList.remove('hidden');
+  blockEl.classList.add('hidden');
+  resultEl.classList.remove('show');
+}
+
+function startQuizNow() {
+  const stop = currentStop;
+  if (!stop) return;
+
+  quizIndex     = 0;
+  quizScorePts  = 0;
+  quizAnswered  = false;
   orderSelected = [];
 
-  document.getElementById('quiz-result').classList.remove('show');
+  document.getElementById('quiz-intro').classList.add('hidden');
   document.getElementById('quiz-question-block').classList.remove('hidden');
+  document.getElementById('quiz-result').classList.remove('show');
 
   renderQuestion();
 }
