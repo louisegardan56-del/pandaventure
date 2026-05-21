@@ -87,14 +87,16 @@ function buildMap() {
   if (!svg || svg.dataset.built) return;
   svg.dataset.built = '1';
 
+  // Coordonnées calées sur la carte illustrée (viewBox 0 0 100 96)
+  // x = % depuis la gauche, y = % depuis le haut
   const pins = [
-    { id:1, cx:200, cy: 90 },
-    { id:2, cx:210, cy:108 },
-    { id:3, cx:118, cy: 80 },
-    { id:4, cx:158, cy:112 },
-    { id:5, cx:185, cy: 80 },
-    { id:6, cx:170, cy: 94 },
-    { id:7, cx:160, cy:122 },
+    { id:1, cx: 47, cy: 44 },  // Louvre
+    { id:2, cx: 57, cy: 48 },  // Notre-Dame
+    { id:3, cx: 25, cy: 25 },  // Arc de Triomphe
+    { id:4, cx: 27, cy: 57 },  // Hôtel des Invalides
+    { id:5, cx: 72, cy: 47 },  // Musée des Arts Décoratifs
+    { id:6, cx: 50, cy: 32 },  // Musée de l'Orangerie
+    { id:7, cx: 47, cy: 61 },  // Musée d'Orsay
   ];
 
   pins.forEach((p, idx) => {
@@ -108,15 +110,16 @@ function buildMap() {
     g.style.cursor = 'pointer';
     g.style.animation = `pin-drop 0.5s cubic-bezier(.4,0,.2,1) ${idx * 0.08 + 0.3}s both`;
 
+    // Anneau pulsant
     const ring = document.createElementNS(ns, 'circle');
     ring.setAttribute('cx', p.cx); ring.setAttribute('cy', p.cy);
-    ring.setAttribute('r', '12'); ring.setAttribute('fill', 'none');
-    ring.setAttribute('stroke', stop.color); ring.setAttribute('stroke-width', '2.5');
-    ring.setAttribute('opacity', '0.5');
+    ring.setAttribute('r', '5.5'); ring.setAttribute('fill', 'none');
+    ring.setAttribute('stroke', stop.color); ring.setAttribute('stroke-width', '1.2');
+    ring.setAttribute('opacity', '0.6');
 
     const animR = document.createElementNS(ns, 'animate');
     animR.setAttribute('attributeName', 'r');
-    animR.setAttribute('values', '12;24');
+    animR.setAttribute('values', '5.5;11');
     animR.setAttribute('dur', '2.2s');
     animR.setAttribute('begin', `${idx * 0.35}s`);
     animR.setAttribute('repeatCount', 'indefinite');
@@ -125,39 +128,45 @@ function buildMap() {
 
     const animO = document.createElementNS(ns, 'animate');
     animO.setAttribute('attributeName', 'opacity');
-    animO.setAttribute('values', '0.5;0');
+    animO.setAttribute('values', '0.6;0');
     animO.setAttribute('dur', '2.2s');
     animO.setAttribute('begin', `${idx * 0.35}s`);
     animO.setAttribute('repeatCount', 'indefinite');
 
     ring.appendChild(animR); ring.appendChild(animO);
 
+    // Ombre
     const shadow = document.createElementNS(ns, 'ellipse');
-    shadow.setAttribute('cx', p.cx); shadow.setAttribute('cy', p.cy + 15);
-    shadow.setAttribute('rx', '7'); shadow.setAttribute('ry', '2.5');
-    shadow.setAttribute('fill', 'rgba(0,0,0,0.2)');
+    shadow.setAttribute('cx', p.cx); shadow.setAttribute('cy', p.cy + 7);
+    shadow.setAttribute('rx', '3.2'); shadow.setAttribute('ry', '1.2');
+    shadow.setAttribute('fill', 'rgba(0,0,0,0.22)');
 
+    // Tige
     const stem = document.createElementNS(ns, 'polygon');
-    stem.setAttribute('points', `${p.cx-3.5},${p.cy+9} ${p.cx+3.5},${p.cy+9} ${p.cx},${p.cy+16}`);
+    stem.setAttribute('points',
+      `${p.cx-1.6},${p.cy+4} ${p.cx+1.6},${p.cy+4} ${p.cx},${p.cy+7.5}`);
     stem.setAttribute('fill', stop.color);
 
+    // Cercle principal
     const circle = document.createElementNS(ns, 'circle');
     circle.setAttribute('cx', p.cx); circle.setAttribute('cy', p.cy);
-    circle.setAttribute('r', '12');
+    circle.setAttribute('r', '5.5');
     circle.setAttribute('fill', stop.color);
-    circle.setAttribute('stroke', '#ffffff'); circle.setAttribute('stroke-width', '2.5');
+    circle.setAttribute('stroke', '#ffffff'); circle.setAttribute('stroke-width', '1.2');
     circle.setAttribute('class', 'pin-circle');
     circle.setAttribute('filter', 'url(#pin-shadow)');
 
+    // Brillance interne
     const inner = document.createElementNS(ns, 'circle');
     inner.setAttribute('cx', p.cx); inner.setAttribute('cy', p.cy);
-    inner.setAttribute('r', '8.5');
+    inner.setAttribute('r', '3.8');
     inner.setAttribute('fill', 'rgba(255,255,255,0.22)');
 
+    // Emoji
     const text = document.createElementNS(ns, 'text');
-    text.setAttribute('x', p.cx); text.setAttribute('y', p.cy + 4.5);
+    text.setAttribute('x', p.cx); text.setAttribute('y', p.cy + 2);
     text.setAttribute('text-anchor', 'middle');
-    text.setAttribute('font-size', '11');
+    text.setAttribute('font-size', '5');
     text.setAttribute('dominant-baseline', 'middle');
     text.textContent = stop.emoji;
 
