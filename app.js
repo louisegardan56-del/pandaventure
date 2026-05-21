@@ -336,6 +336,10 @@ function buildPhotoTab() {
     document.getElementById('photo-done-badge').classList.add('hidden');
   }
 
+  // Update capsule teaser year (default capsuleYears = 5)
+  const teaserYearEl = document.getElementById('capsule-teaser-year');
+  if (teaserYearEl) teaserYearEl.textContent = new Date().getFullYear() + capsuleYears;
+
   updateCapsuleBtn();
 }
 
@@ -641,7 +645,7 @@ function selectMCQ(index, btn, q) {
     allBtns[q.correct].classList.add('correct');
   }
   updateScoreInline();
-  showQuizFeedback(correct);
+  showQuizFeedback(correct, correct ? null : `✗ Bonne réponse : ${q.answers[q.correct]}`);
   scheduleNext();
 }
 
@@ -676,7 +680,7 @@ function selectTF(value) {
   }
 
   updateScoreInline();
-  showQuizFeedback(correct);
+  showQuizFeedback(correct, correct ? null : `✗ Bonne réponse : ${q.correct ? 'Vrai' : 'Faux'}`);
   scheduleNext();
 }
 
@@ -952,6 +956,9 @@ function selectDuration(years, btn) {
   document.querySelectorAll('.dur-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   updateCapsulePreview();
+  // Keep teaser year in sync if photo tab was already rendered
+  const teaserYearEl = document.getElementById('capsule-teaser-year');
+  if (teaserYearEl) teaserYearEl.textContent = new Date().getFullYear() + years;
 }
 
 function updateCapsulePreview() {
@@ -1008,12 +1015,19 @@ function sealCapsule() {
   });
   localStorage.setItem('pv_capsules', JSON.stringify(capsules));
 
-  // Show sealed animation then transition to contest
+  // Auto-register contest entry (email already collected at onboarding)
+  if (playerEmail) {
+    const entries = JSON.parse(localStorage.getItem('pv_contest') || '[]');
+    entries.push({ name: playerName, email: playerEmail, stop: currentStop?.id, date: Date.now() });
+    localStorage.setItem('pv_contest', JSON.stringify(entries));
+  }
+
+  // Show sealed animation then go straight to final screen
   const anim = document.getElementById('capsule-sealed-anim');
   anim.classList.add('show');
   setTimeout(() => {
     anim.classList.remove('show');
-    showContest();
+    showFinal();
   }, 2200);
 }
 
