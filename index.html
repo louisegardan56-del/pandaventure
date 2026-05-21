@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Panda'venture × WWF</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div id="app">
+
+  <!-- ══════════════════════════════════════════════════
+       SPLASH
+  ══════════════════════════════════════════════════ -->
+  <div id="screen-splash" class="screen active">
+    <div class="splash-bg"></div>
+    <div class="splash-content">
+      <img src="charte graphique panda'venture/log_panda'venture.png" alt="Panda'venture" class="splash-logo-img" />
+      <p class="splash-tagline">Découvre Paris autrement</p>
+      <div class="splash-wwf">
+        <span class="wwf-badge">×</span>
+        <span class="splash-wwf-text">WWF</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       HOME — redesign blanc & gamifié
+  ══════════════════════════════════════════════════ -->
+  <div id="screen-home" class="screen">
+
+    <!-- HEADER -->
+    <div class="home-header">
+      <img src="charte graphique panda'venture/log_panda'venture.png" alt="Panda'venture" class="home-logo-img" />
+      <div class="home-jep-badge">20-21 Sept 2025</div>
+    </div>
+
+    <div class="home-scroll">
+
+      <!-- SALOMON BANNER -->
+      <div class="salomon-banner" onclick="showSalomon()">
+        <div class="sal-banner-content">
+          <div class="sal-banner-tag">🎁 JEU CONCOURS</div>
+          <div class="sal-banner-title">Gagne une paire<br><strong>Salomon × WWF</strong></div>
+          <div class="sal-banner-cta">Participer →</div>
+        </div>
+        <img class="sal-banner-shoe" src="jeu_concours_salomon/paire_écaille_front.jpg" alt="Salomon WWF" />
+      </div>
+
+      <!-- GAMIFICATION FEATURES -->
+      <div class="home-section-title">3 aventures t'attendent</div>
+      <div class="home-features">
+        <div class="feat-card" onclick="document.getElementById('screen-home').querySelector('.home-map-section').scrollIntoView({behavior:'smooth'})">
+          <div class="feat-emoji">🧠</div>
+          <div class="feat-name">Quiz</div>
+          <div class="feat-desc">Teste tes connaissances sur la biodiversité</div>
+          <div class="feat-cta">Jouer →</div>
+        </div>
+        <div class="feat-card feat-capsule-card" onclick="document.getElementById('screen-home').querySelector('.home-map-section').scrollIntoView({behavior:'smooth'})">
+          <div class="feat-emoji">⏳</div>
+          <div class="feat-name">Capsule</div>
+          <div class="feat-desc">Laisse un message pour 2031</div>
+          <div class="feat-cta">Créer →</div>
+        </div>
+        <div class="feat-card" onclick="document.getElementById('screen-home').querySelector('.home-map-section').scrollIntoView({behavior:'smooth'})">
+          <div class="feat-emoji">📸</div>
+          <div class="feat-name">Photo</div>
+          <div class="feat-desc">Souvenir unique avec les espèces</div>
+          <div class="feat-cta">Shooter →</div>
+        </div>
+      </div>
+
+      <!-- CAPSULE HIGHLIGHT -->
+      <div class="capsule-highlight">
+        <div class="capsule-shine"></div>
+        <div class="cap-hl-left">
+          <div class="cap-hl-icon">⏳</div>
+          <div>
+            <div class="cap-hl-title">Capsule Temporelle</div>
+            <div class="cap-hl-sub">Ton message sera scellé jusqu'en 2031 — pour les générations qui hériteront de notre planète.</div>
+          </div>
+        </div>
+        <div class="cap-hl-year">2031</div>
+      </div>
+
+      <!-- MAP SECTION -->
+      <div class="home-map-section">
+        <div class="home-section-title">7 monuments à explorer</div>
+        <p class="home-map-hint">Choisis un lieu pour commencer l'aventure</p>
+        <div class="home-map-card">
+          <svg id="paris-map-svg" viewBox="60 10 210 210" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" class="paris-svg">
+            <defs>
+              <radialGradient id="mapbg" cx="50%" cy="45%" r="70%">
+                <stop offset="0%" stop-color="#EAF6F2"/>
+                <stop offset="100%" stop-color="#D0EAE4"/>
+              </radialGradient>
+              <filter id="pin-shadow" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.3)"/>
+              </filter>
+            </defs>
+
+            <!-- Background -->
+            <rect x="60" y="10" width="210" height="210" fill="url(#mapbg)" rx="0"/>
+
+            <!-- Bois de Boulogne (west) -->
+            <ellipse cx="90" cy="98" rx="13" ry="22" fill="#5DB85A" opacity="0.75"/>
+            <ellipse cx="90" cy="98" rx="8" ry="14" fill="#7FD47A" opacity="0.55"/>
+
+            <!-- Bois de Vincennes (east) -->
+            <ellipse cx="250" cy="116" rx="17" ry="13" fill="#5DB85A" opacity="0.75"/>
+            <ellipse cx="250" cy="116" rx="10" ry="7" fill="#7FD47A" opacity="0.55"/>
+
+            <!-- ZONES — flat tropical colors -->
+            <!-- Zone nord-ouest: 8e,16e,17e — mango warm -->
+            <path d="M96,68 Q106,48 136,40 Q150,37 160,39 L150,60 Q138,68 122,73 Q108,76 96,68 Z"
+                  fill="#FFCA84" stroke="#fff" stroke-width="1.2" stroke-opacity="0.7"/>
+
+            <!-- Zone nord: 18e,9e,10e — coral rose -->
+            <path d="M160,39 Q178,33 202,40 Q220,46 232,63 Q216,60 198,58 Q182,54 163,56 Q153,52 150,60 Q155,48 160,39 Z"
+                  fill="#FF9878" stroke="#fff" stroke-width="1.2" stroke-opacity="0.7"/>
+
+            <!-- Zone est: 20e,11e,12e — terra cotta -->
+            <path d="M230,63 Q244,76 248,99 Q247,121 240,141 Q228,153 212,157 Q220,132 218,110 Q220,88 230,63 Z"
+                  fill="#EFA088" stroke="#fff" stroke-width="1.2" stroke-opacity="0.7"/>
+
+            <!-- Zone sud-est: 13e,14e — lilac mauve -->
+            <path d="M212,157 Q190,166 164,163 Q167,147 170,132 Q188,130 202,120 Q210,115 218,110 Q214,131 212,157 Z"
+                  fill="#C4A0D5" stroke="#fff" stroke-width="1.2" stroke-opacity="0.7"/>
+
+            <!-- Zone sud: 5e,6e — sky blue -->
+            <path d="M164,163 Q144,168 118,158 Q107,149 105,136 Q112,126 126,120 Q140,116 152,120 Q158,124 163,132 Z"
+                  fill="#A0BCE8" stroke="#fff" stroke-width="1.2" stroke-opacity="0.7"/>
+
+            <!-- Zone ouest-sud: 15e,7e — sage mint -->
+            <path d="M105,136 Q93,124 90,110 Q90,97 94,85 Q107,84 114,90 Q120,100 122,115 Q118,126 112,134 Z"
+                  fill="#98D4A8" stroke="#fff" stroke-width="1.2" stroke-opacity="0.7"/>
+
+            <!-- Zone centrale: 1er–4e,7e,8e — golden -->
+            <path d="M130,78 Q148,64 168,62 Q184,62 196,70 Q207,80 204,93 Q198,105 186,110 Q172,115 158,111 Q144,106 134,96 Q128,88 130,78 Z"
+                  fill="#FFE070" stroke="#fff" stroke-width="1.4" stroke-opacity="0.8"/>
+
+            <!-- Central glow -->
+            <path d="M140,80 Q154,70 168,68 Q180,68 190,76 Q198,84 196,94 Q190,104 178,108 Q166,112 154,108 Q142,102 140,92 Z"
+                  fill="#FFD030" opacity="0.3"/>
+
+            <!-- Périphérique ring -->
+            <path d="M96,68 Q97,48 118,40 Q145,33 178,34 Q210,35 232,51 Q250,66 251,93 Q255,116 247,139 Q239,159 219,166 Q195,173 167,171 Q139,170 113,159 Q88,145 83,121 Q78,100 84,80 Q88,72 96,68 Z"
+                  fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-dasharray="6,3.5"/>
+
+            <!-- Seine — tropical teal -->
+            <path d="M88,104 Q108,99 128,101 Q148,103 168,106 Q186,108 205,108 Q223,108 240,112 Q254,117 268,124"
+                  fill="none" stroke="#28B4CC" stroke-width="6" stroke-linecap="round" opacity="0.9"/>
+            <!-- Seine shimmer -->
+            <path d="M88,104 Q108,99 128,101 Q148,103 168,106 Q186,108 205,108 Q223,108 240,112 Q254,117 268,124"
+                  fill="none" stroke="#7CE8F0" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+
+            <!-- Île de la Cité -->
+            <ellipse cx="202" cy="108" rx="10" ry="4.5" fill="#28B4CC" opacity="0.7" stroke="#fff" stroke-width="0.8"/>
+            <!-- Île St-Louis -->
+            <ellipse cx="215" cy="110" rx="7" ry="3.5" fill="#28B4CC" opacity="0.55" stroke="#fff" stroke-width="0.7"/>
+
+            <!-- Axes (routes blanches) -->
+            <line x1="168" y1="40" x2="168" y2="162" stroke="rgba(255,255,255,0.6)" stroke-width="1.2" stroke-dasharray="4,3"/>
+            <line x1="88" y1="97" x2="265" y2="97" stroke="rgba(255,255,255,0.6)" stroke-width="1.2" stroke-dasharray="4,3"/>
+            <!-- Champs-Élysées diagonal -->
+            <line x1="118" y1="81" x2="200" y2="90" stroke="rgba(255,255,255,0.5)" stroke-width="0.9" stroke-dasharray="3,3"/>
+
+            <!-- Compass -->
+            <circle cx="252" cy="27" r="10" fill="rgba(255,255,255,0.85)" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+            <text x="252" y="31" text-anchor="middle" font-size="7.5" fill="rgba(50,35,15,0.55)" font-weight="800">N</text>
+            <line x1="252" y1="19" x2="252" y2="22" stroke="rgba(50,35,15,0.35)" stroke-width="1.5" stroke-linecap="round"/>
+
+            <!-- PARIS label -->
+            <text x="168" y="192" text-anchor="middle" font-size="9.5" font-weight="800" fill="rgba(50,35,15,0.2)" letter-spacing="5">PARIS</text>
+
+            <!-- Pins injected by JS -->
+          </svg>
+        </div>
+      </div>
+
+    </div><!-- /home-scroll -->
+
+    <!-- Map bottom-sheet card -->
+    <div id="map-card" class="map-card">
+      <div class="map-card-handle"></div>
+      <div class="map-card-header">
+        <span id="mc-emoji" class="map-card-emoji"></span>
+        <div class="map-card-info">
+          <div id="mc-monument" class="map-card-monument"></div>
+          <div id="mc-species"  class="map-card-species"></div>
+        </div>
+        <button class="map-card-close" onclick="closeMapCard()">✕</button>
+      </div>
+      <p id="mc-slogan" class="map-card-slogan"></p>
+      <div class="map-card-features">
+        <span class="mc-feat">🧠 Quiz</span>
+        <span class="mc-feat">⏳ Capsule</span>
+        <span class="mc-feat">📸 Photo</span>
+      </div>
+      <button id="mc-go-btn" class="btn-primary map-card-go">Commencer l'aventure →</button>
+    </div>
+
+  </div><!-- /screen-home -->
+
+  <!-- ══════════════════════════════════════════════════
+       ONBOARDING — landing immersive par stop
+  ══════════════════════════════════════════════════ -->
+  <div id="screen-onboarding" class="screen">
+
+    <!-- HERO : PHOTO DU MONUMENT -->
+    <div class="ob-hero">
+      <div class="ob-hero-photo" id="ob-hero-photo"></div>
+      <div class="ob-hero-overlay" id="ob-hero-overlay"></div>
+
+      <div class="ob-top-bar">
+        <img src="charte graphique panda'venture/log_panda'venture.png" alt="Panda'venture" class="ob-logo" />
+        <div class="ob-wwf-badge">× WWF</div>
+      </div>
+
+      <div class="ob-hero-footer">
+        <img class="ob-species-illu animate-in" id="ob-species-illu" src="" alt="" />
+        <div class="ob-monument-info">
+          <div class="ob-monument-label">Vous êtes à</div>
+          <h1 class="ob-monument-name" id="ob-monument"></h1>
+          <div class="ob-species-pill"><span id="ob-species"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEUILLE FORMULAIRE SCROLLABLE -->
+    <div class="ob-form-sheet">
+      <div class="ob-form-handle"></div>
+
+      <!-- Accroche Salomon -->
+      <div class="ob-contest-block">
+        <div class="ob-contest-eyebrow">QUIZ EXCLUSIF × SALOMON</div>
+        <h2 class="ob-contest-title">En famille, en couple,<br>entre amis ?</h2>
+        <p class="ob-contest-sub">Formez une équipe et défiez les autres visiteurs sur la biodiversité — le temps de passer la file d'attente.</p>
+      </div>
+
+      <!-- Prix -->
+      <div class="ob-prize-card">
+        <div class="ob-prize-trophy"></div>
+        <div class="ob-prize-body">
+          <div class="ob-prize-title">Top 3 du classement</div>
+          <div class="ob-prize-sub">Chaque membre de l'équipe remporte une paire Salomon au choix</div>
+        </div>
+        <div class="ob-prize-tag">+ tirage<br>au sort</div>
+      </div>
+
+      <!-- Formulaire -->
+      <div class="ob-fields">
+        <label class="ob-label">Email <span class="ob-label-hint">— pour recevoir votre capsule temporelle</span></label>
+        <input id="ob-email" class="ob-input" type="email" placeholder="votre@email.com" autocomplete="email" inputmode="email" />
+
+        <label class="ob-label">Nom de l'équipe</label>
+        <input id="ob-team" class="ob-input" type="text" placeholder="Ex : Les Explorateurs" maxlength="32" autocomplete="off" />
+
+        <label class="ob-label">Prénoms des membres</label>
+        <input id="ob-members" class="ob-input" type="text" placeholder="Ex : Marie, Paul, Léa" maxlength="80" autocomplete="off" />
+      </div>
+
+      <button id="ob-start-btn" class="ob-start-btn">Lancer le quiz</button>
+
+      <p class="ob-legal">En participant, vous acceptez de recevoir votre capsule temporelle par email en 2031. Les 3 premières équipes de chaque monument gagnent chacune une paire Salomon. Un tirage au sort est également effectué parmi toutes les capsules.</p>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       STOP EXPERIENCE
+  ══════════════════════════════════════════════════ -->
+  <div id="screen-stop" class="screen">
+
+    <!-- Hero avec photo -->
+    <div class="stop-hero">
+      <div class="stop-hero-photo" id="stop-hero-photo"></div>
+      <div class="stop-hero-overlay"></div>
+      <img src="charte graphique panda'venture/log_panda'venture.png" alt="Panda'venture" class="stop-hero-logo" />
+      <button class="back-btn" onclick="goBackFromStop()">← Carte</button>
+      <div class="stop-hero-content">
+        <div class="stop-hero-emoji" id="stop-emoji-hero"></div>
+        <div class="stop-hero-monument" id="stop-monument"></div>
+        <div class="stop-hero-species"  id="stop-species"></div>
+        <div class="stop-hero-slogan"   id="stop-slogan"></div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs-bar">
+      <button class="tab-btn active" data-tab="photo" onclick="switchTab('photo')">📸 Photo</button>
+      <button class="tab-btn"        data-tab="quiz"  onclick="switchTab('quiz')">🧠 Quiz</button>
+      <button class="tab-btn"        data-tab="wwf"   onclick="switchTab('wwf')">🌿 WWF</button>
+    </div>
+
+    <!-- Tab panels -->
+    <div class="tabs-content">
+
+      <!-- PHOTO TAB -->
+      <div id="tab-photo" class="tab-panel active">
+
+        <!-- GPS Photo Challenge -->
+        <div id="photo-challenge" class="photo-challenge-card">
+          <div class="challenge-header">
+            <div class="challenge-icon-wrap">📍</div>
+            <div>
+              <div class="challenge-tag">DÉFI PHOTO</div>
+              <div class="challenge-title">Allez au panneau</div>
+            </div>
+          </div>
+          <p class="challenge-desc">Rendez-vous devant le panneau Panda'venture et placez-vous sur les empreintes.</p>
+          <div id="challenge-status" class="challenge-status"></div>
+          <button class="btn-primary" id="challenge-gps-btn" onclick="verifyLocation()">
+            📍 Je suis devant le panneau
+          </button>
+        </div>
+
+        <!-- Photo done indicator (hidden initially) -->
+        <div id="photo-done-badge" class="photo-done-badge hidden">
+          <span class="done-check">✅</span>
+          <span>Défi photo accompli !</span>
+        </div>
+
+        <!-- Species info -->
+        <div class="photo-species-header">
+          <span id="photo-species-emoji" class="photo-species-emoji"></span>
+          <span id="photo-species-name"  class="photo-species-name"></span>
+        </div>
+        <p id="photo-fact" class="photo-fact"></p>
+
+        <!-- Capsule button — locked until quiz + photo done -->
+        <button class="capsule-btn btn-secondary" id="capsule-btn" onclick="tryOpenCapsule()">
+          🔒 Capsule temporelle
+        </button>
+        <div id="capsule-lock-msg" class="capsule-lock-msg">
+          Complète le quiz et le défi photo pour débloquer
+        </div>
+      </div>
+
+      <!-- QUIZ TAB -->
+      <div id="tab-quiz" class="tab-panel">
+        <div id="quiz-question-block">
+
+          <!-- Progress -->
+          <div class="quiz-prog-wrap">
+            <div class="quiz-prog-bar"><div id="quiz-prog-fill" class="quiz-prog-fill" style="width:0%"></div></div>
+            <div class="quiz-meta">
+              <span id="quiz-progress" class="quiz-progress"></span>
+              <span id="quiz-score-inline" class="quiz-score-inline">0 pt</span>
+            </div>
+          </div>
+
+          <!-- Question text -->
+          <div id="quiz-q-text" class="quiz-q-box"></div>
+          <!-- Points badge -->
+          <div id="quiz-pts-badge" class="quiz-pts-badge"></div>
+
+          <!-- MCQ answers -->
+          <div id="quiz-answers-grid" class="quiz-answers-grid"></div>
+
+          <!-- True / False -->
+          <div id="quiz-tf-grid" class="quiz-tf-grid hidden">
+            <button class="tf-btn tf-vrai" id="tf-vrai" onclick="selectTF(true)">✓ Vrai</button>
+            <button class="tf-btn tf-faux" id="tf-faux" onclick="selectTF(false)">✗ Faux</button>
+          </div>
+
+          <!-- Estimate slider -->
+          <div id="quiz-estimate-block" class="quiz-estimate-block hidden">
+            <div class="estimate-value-wrap">
+              <span id="estimate-value" class="estimate-value">0</span>
+              <span id="estimate-unit" class="estimate-unit"></span>
+            </div>
+            <input type="range" id="estimate-slider" class="estimate-slider" min="0" max="100" value="50" />
+            <div class="estimate-range-labels">
+              <span id="estimate-min-label"></span>
+              <span id="estimate-max-label"></span>
+            </div>
+            <div id="estimate-answer-reveal" class="estimate-answer-reveal hidden"></div>
+            <button class="btn-primary estimate-validate-btn" id="estimate-validate-btn" onclick="validateEstimate()">Valider ma réponse →</button>
+          </div>
+
+          <!-- Order ranking -->
+          <div id="quiz-order-block" class="quiz-order-block hidden">
+            <p class="order-hint">Appuie dans le bon ordre ↓</p>
+            <div id="order-items" class="order-items"></div>
+            <div id="order-result" class="order-result hidden"></div>
+          </div>
+
+          <!-- Feedback -->
+          <div id="quiz-feedback" class="quiz-feedback hidden"></div>
+        </div>
+
+        <!-- Result -->
+        <div id="quiz-result" class="quiz-result">
+          <div class="score-ring">
+            <span id="quiz-score-emoji" class="score-emoji"></span>
+            <span id="quiz-score-final" class="score-title"></span>
+          </div>
+          <h3 class="score-label">Score final</h3>
+          <div class="leaderboard-header">
+            <span class="leaderboard-title">Classement en direct</span>
+            <span id="leaderboard-live-dot" class="live-dot"></span>
+          </div>
+          <table class="ranking-table">
+            <thead><tr><th>#</th><th>Équipe</th><th>Score</th></tr></thead>
+            <tbody id="ranking-body"></tbody>
+          </table>
+          <button class="btn-primary" onclick="showSalomon()">Découvrir la collection Salomon →</button>
+        </div>
+      </div>
+
+      <!-- WWF TAB -->
+      <div id="tab-wwf" class="tab-panel">
+        <div class="wwf-logo-row">
+          <div class="wwf-panda-icon">🐼</div>
+          <div class="wwf-org-name">WWF France</div>
+        </div>
+        <p id="wwf-action-text" class="wwf-action-text"></p>
+        <div class="wwf-species-pill" id="wwf-species-tag"></div>
+        <a href="https://www.wwf.fr" target="_blank" rel="noopener" class="btn-primary wwf-cta-btn">
+          Agir avec WWF →
+        </a>
+        <button class="btn-secondary" onclick="showContest()">🎁 Participer au concours Salomon</button>
+      </div>
+
+    </div><!-- /tabs-content -->
+  </div><!-- /screen-stop -->
+
+  <!-- ══════════════════════════════════════════════════
+       PHOTOBOOTH OVERLAY
+  ══════════════════════════════════════════════════ -->
+  <div id="photobooth-overlay" class="photobooth-overlay" data-mode="souvenir">
+    <div class="pb-inner">
+      <button class="pb-close" onclick="closePhotobooth()">✕</button>
+      <video id="pb-video" class="pb-video" autoplay muted playsinline></video>
+      <canvas id="pb-canvas" class="pb-canvas" style="display:none"></canvas>
+      <!-- Footprint overlay — shown for challenge mode -->
+      <div id="pb-footprints" class="pb-footprints hidden">
+        <div class="pb-footprint-pair">👣</div>
+        <div class="pb-footprint-hint">Placez-vous sur les empreintes</div>
+      </div>
+      <div class="pb-frame">
+        <span id="pb-frame-text" class="pb-frame-text"></span>
+      </div>
+      <button class="pb-shutter" onclick="takePhoto()">📸</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       CAPSULE TEMPORELLE
+  ══════════════════════════════════════════════════ -->
+  <div id="screen-capsule" class="screen">
+    <div class="capsule-header">
+      <button class="back-btn-flat" onclick="switchTab('photo'); showScreen('screen-stop')">← Retour</button>
+      <h2 class="capsule-title">Capsule Temporelle</h2>
+    </div>
+    <div class="capsule-body">
+      <p class="capsule-intro">Laisse un message pour les générations futures. Il sera scellé pour&nbsp;:</p>
+
+      <div class="duration-row">
+        <button class="dur-btn active" data-years="5"  onclick="selectDuration(5,  this)"><span class="dur-y">5</span><span class="dur-label">ans</span></button>
+        <button class="dur-btn"        data-years="10" onclick="selectDuration(10, this)"><span class="dur-y">10</span><span class="dur-label">ans</span></button>
+        <button class="dur-btn"        data-years="15" onclick="selectDuration(15, this)"><span class="dur-y">15</span><span class="dur-label">ans</span></button>
+      </div>
+
+      <div class="capsule-preview">
+        <div id="capsule-duration-text" class="capsule-duration-text">Dans 5 ans</div>
+        <div class="capsule-year-wrap">
+          <span class="capsule-open-label">À ouvrir en</span>
+          <span id="capsule-year-display" class="capsule-year"></span>
+        </div>
+      </div>
+
+      <textarea id="capsule-message" class="capsule-textarea"
+        placeholder="Cher futur humain…  🌿 Que reste-t-il des espèces sauvages de notre époque ?"></textarea>
+
+      <button class="btn-primary capsule-seal-btn" onclick="sealCapsule()">
+        🔒 Sceller ma capsule
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       SEALED
+  ══════════════════════════════════════════════════ -->
+  <div id="screen-sealed" class="screen">
+    <div class="sealed-inner">
+      <div id="sealed-emoji" class="sealed-emoji"></div>
+      <h2 class="sealed-title">Capsule scellée !</h2>
+      <p class="sealed-text">
+        Ta capsule pour <strong id="sealed-species"></strong> s'ouvrira en<br>
+        <span id="sealed-year" class="sealed-year"></span>
+      </p>
+      <p class="sealed-sub">Elle est sauvegardée sur cet appareil.<br>À retrouver dans quelques années… 🌱</p>
+      <button class="btn-primary" onclick="continueToCapsuleEnd()">Continuer →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       SALOMON COLLECTION — vraies photos
+  ══════════════════════════════════════════════════ -->
+  <div id="screen-salomon" class="screen">
+    <div class="sal-screen-header">
+      <button class="back-btn-dark" onclick="goBackFromSalomon()">← Retour</button>
+      <div class="sal-screen-logos">
+        <span class="sal-logo-text">SALOMON</span>
+        <span class="sal-x">×</span>
+        <span class="sal-wwf-logo">🐼 WWF</span>
+      </div>
+    </div>
+
+    <div class="sal-screen-scroll">
+      <div class="sal-screen-intro">
+        <h2 class="sal-screen-title">Collection exclusive<br>Panda'venture</h2>
+        <p class="sal-screen-sub">2 paires en édition limitée imaginées pour la biodiversité. Chaque paire incarne une espèce sauvage que tu viens de rencontrer.</p>
+      </div>
+
+      <!-- Paire 1 : Écaille -->
+      <div class="sal-shoe-card">
+        <div class="sal-shoe-img-wrap sal-ecaille">
+          <img src="jeu_concours_salomon/paire_écaille_front.jpg" alt="Salomon Écaille WWF" class="sal-shoe-img"/>
+          <div class="sal-shoe-badge">Édition Limitée</div>
+        </div>
+        <div class="sal-shoe-body">
+          <div class="sal-shoe-tag" style="background:#1A6B3A">ÉCAILLE · IRISÉ</div>
+          <div class="sal-shoe-name">Panda'venture Scale</div>
+          <p class="sal-shoe-desc">Des reflets irisés évoquant les écailles de la biodiversité marine. Avec le charm panda WWF en or suspendu au lacet.</p>
+          <div class="sal-shoe-detail">
+            <span>🐼 Charm panda WWF exclusif</span>
+            <span>✦ Édition numérotée</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paire 2 : Léopard -->
+      <div class="sal-shoe-card">
+        <div class="sal-shoe-img-wrap sal-leopard">
+          <img src="jeu_concours_salomon/paire_léopard_front.jpg" alt="Salomon Léopard WWF" class="sal-shoe-img"/>
+          <div class="sal-shoe-badge">Édition Limitée</div>
+        </div>
+        <div class="sal-shoe-body">
+          <div class="sal-shoe-tag" style="background:#7A4F2D">LÉOPARD · SAUVAGE</div>
+          <div class="sal-shoe-name">Panda'venture Léopard</div>
+          <p class="sal-shoe-desc">Le motif léopard iconique, en hommage au félin le plus rare de la planète. Moins de 100 individus à l'état sauvage.</p>
+          <div class="sal-shoe-detail">
+            <span>🐆 Léopard de l'Amour</span>
+            <span>✦ Édition numérotée</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA concours -->
+      <div class="sal-contest-cta">
+        <div class="sal-contest-cta-title">🎁 Tente ta chance</div>
+        <p class="sal-contest-cta-sub">Participe au tirage au sort et remporte l'une de ces deux paires exclusives.</p>
+        <button class="btn-black" onclick="showContest()">Participer au jeu concours →</button>
+      </div>
+
+    </div><!-- /sal-screen-scroll -->
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       CONCOURS — redesign avec vraie chaussure
+  ══════════════════════════════════════════════════ -->
+  <div id="screen-contest" class="screen">
+    <div class="contest-shoe-hero">
+      <button class="back-btn-flat light" onclick="showSalomon()">← Retour</button>
+      <div class="contest-shoe-imgs">
+        <img src="jeu_concours_salomon/paire_écaille_front.jpg" alt="Paire Écaille" class="contest-shoe-img contest-shoe-img-1"/>
+        <img src="jeu_concours_salomon/paire_léopard_front.jpg" alt="Paire Léopard" class="contest-shoe-img contest-shoe-img-2"/>
+      </div>
+      <div class="contest-shoe-overlay">
+        <h2 class="contest-title-big">Gagne une paire<br>Salomon × WWF</h2>
+        <p class="contest-title-sub">2 paires à remporter — Édition Panda'venture</p>
+      </div>
+    </div>
+    <div class="contest-form">
+      <div class="contest-player-badge">
+        <span>👤</span>
+        <span>Tu joues en tant que <strong id="contest-name-display"></strong></span>
+      </div>
+      <label class="form-label">Ton e-mail
+        <input id="contest-email" class="name-input" type="email" placeholder="prenom@exemple.fr" />
+      </label>
+      <label class="form-checkbox">
+        <input id="contest-consent" type="checkbox" />
+        <span>J'accepte de recevoir les actualités WWF et Salomon (désabonnement à tout moment)</span>
+      </label>
+      <div class="contest-legal">🎁 Tirage au sort le 22 sept 2025 — 1 gagnant par paire</div>
+      <button class="btn-black" onclick="submitContest()">Valider ma participation →</button>
+      <button class="btn-ghost" onclick="showFinal()">Non merci, continuer sans participer</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       FINAL
+  ══════════════════════════════════════════════════ -->
+  <div id="screen-final" class="screen">
+    <div class="final-inner">
+      <img src="charte graphique panda'venture/log_panda'venture.png" alt="Panda'venture" class="final-logo" />
+      <div id="final-emoji"   class="final-emoji"></div>
+      <h2 class="final-title">Bravo <span id="final-name"></span> !</h2>
+      <p class="final-text">Tu as découvert <strong id="final-species"></strong> aujourd'hui.</p>
+      <div class="final-score-badge">
+        Quiz : <span id="final-score"></span>
+      </div>
+      <p class="final-sub">Merci d'agir pour la biodiversité avec WWF 🌿</p>
+      <button class="btn-primary" onclick="shareResult()">📤 Partager mon aventure</button>
+      <button class="btn-secondary" onclick="goToMap()">🗺 Découvrir d'autres monuments</button>
+    </div>
+  </div>
+
+</div><!-- /#app -->
+
+<script src="data.js?v=5"></script>
+<script src="app.js?v=5"></script>
+</body>
+</html>
