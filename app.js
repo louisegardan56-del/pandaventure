@@ -162,13 +162,15 @@ function buildMap() {
     inner.setAttribute('r', '3.8');
     inner.setAttribute('fill', 'rgba(255,255,255,0.22)');
 
-    // Emoji
+    // Stop number label
     const text = document.createElementNS(ns, 'text');
     text.setAttribute('x', p.cx); text.setAttribute('y', p.cy + 2);
     text.setAttribute('text-anchor', 'middle');
-    text.setAttribute('font-size', '5');
+    text.setAttribute('font-size', '4.5');
     text.setAttribute('dominant-baseline', 'middle');
-    text.textContent = stop.emoji;
+    text.setAttribute('fill', 'white');
+    text.setAttribute('font-weight', '800');
+    text.textContent = stop.id;
 
     g.appendChild(ring); g.appendChild(shadow); g.appendChild(stem);
     g.appendChild(circle); g.appendChild(inner); g.appendChild(text);
@@ -184,7 +186,8 @@ function showMapCard(stop) {
   setTheme(stop);
   document.getElementById('mc-monument').textContent = stop.monument;
   document.getElementById('mc-species').textContent  = stop.species;
-  document.getElementById('mc-emoji').textContent    = stop.emoji;
+  const mcImg = document.getElementById('mc-species-img');
+  if (mcImg) { mcImg.src = stop.speciesIllustration; mcImg.alt = stop.species; }
   document.getElementById('mc-slogan').textContent   = stop.slogan.replace('\n', ' ');
 
   const btn = document.getElementById('mc-go-btn');
@@ -284,7 +287,8 @@ function openStop(stop) {
   document.getElementById('stop-monument').textContent = stop.monument;
   document.getElementById('stop-species').textContent  = stop.species;
   document.getElementById('stop-slogan').textContent   = stop.slogan;
-  document.getElementById('stop-emoji-hero').textContent = stop.emoji;
+  const heroImg = document.getElementById('stop-hero-species-img');
+  if (heroImg) { heroImg.src = stop.speciesIllustration; heroImg.alt = stop.species; }
 
   switchTab('quiz');
   showScreen('screen-stop');
@@ -328,7 +332,8 @@ function buildPhotoTab() {
 
   document.getElementById('photo-fact').textContent        = stop.fact;
   document.getElementById('photo-species-name').textContent = stop.species;
-  document.getElementById('photo-species-emoji').textContent = stop.emoji;
+  const photoImg = document.getElementById('photo-species-img');
+  if (photoImg) { photoImg.src = stop.speciesIllustration; photoImg.alt = stop.species; }
 
   // Reset challenge status text
   const statusEl = document.getElementById('challenge-status');
@@ -566,6 +571,8 @@ function initQuiz() {
   document.getElementById('quiz-intro-monument').textContent  = stop.monument;
   document.getElementById('quiz-intro-questions').textContent = stop.quiz.length;
   document.getElementById('quiz-intro-pts').textContent       = totalPts;
+  const qIntroImg = document.getElementById('quiz-intro-species-img');
+  if (qIntroImg) { qIntroImg.src = stop.speciesIllustration; qIntroImg.alt = stop.species; }
 
   // Show intro, hide question block & result
   introEl.classList.remove('hidden');
@@ -865,8 +872,10 @@ async function endQuiz() {
 
   document.getElementById('quiz-score-final').textContent =
     `${quizScorePts} pts`;
-  document.getElementById('quiz-score-emoji').textContent =
-    pct >= 0.88 ? '🏆' : pct >= 0.6 ? '👏' : '💪';
+  const medalEl = document.getElementById('quiz-score-medal');
+  if (medalEl) {
+    medalEl.className = 'score-medal ' + (pct >= 0.88 ? 'medal-gold' : pct >= 0.6 ? 'medal-silver' : 'medal-bronze');
+  }
 
   // POST score to server + connect SSE
   await submitScore();
@@ -915,16 +924,15 @@ function startSSE(monumentId) {
 function buildRankingTable(ranking) {
   const tbody  = document.getElementById('ranking-body');
   tbody.innerHTML = '';
-  const medals = ['🥇', '🥈', '🥉'];
-
   ranking.slice(0, 8).forEach((entry, i) => {
     const name  = entry.team || entry.name || '?';
     const score = entry.score ?? 0;
     const isMe  = name.toLowerCase() === (teamName || '').toLowerCase();
+    const posLabel = i === 0 ? '1er' : i === 1 ? '2e' : i === 2 ? '3e' : `${i + 1}e`;
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td class="rank-pos">${medals[i] || (i + 1)}</td>
+      <td class="rank-pos">${posLabel}</td>
       <td>${name}</td>
       <td><strong>${score}</strong></td>`;
     if (isMe) tr.classList.add('me');
@@ -939,6 +947,8 @@ function buildWWFTab() {
   if (!stop) return;
   document.getElementById('wwf-action-text').textContent = stop.wwfAction;
   document.getElementById('wwf-species-tag').textContent = stop.species;
+  const wwfImg = document.getElementById('wwf-species-img');
+  if (wwfImg) { wwfImg.src = stop.speciesIllustration; wwfImg.alt = stop.species; }
 }
 
 
@@ -1076,7 +1086,8 @@ function submitContest() {
 function showFinal() {
   document.getElementById('final-name').textContent    = playerName;
   document.getElementById('final-species').textContent = currentStop?.species || '';
-  document.getElementById('final-emoji').textContent   = currentStop?.emoji   || '';
+  const finalImg = document.getElementById('final-species-img');
+  if (finalImg && currentStop) { finalImg.src = currentStop.speciesIllustration; finalImg.alt = currentStop.species; }
   document.getElementById('final-score').textContent   = `${quizScorePts} pts`;
   showScreen('screen-final');
 }

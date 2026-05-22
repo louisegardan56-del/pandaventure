@@ -80,7 +80,7 @@ html, body { height: 100%; overflow: hidden; font-family: var(--font-ui); backgr
   align-items: center; justify-content: center; gap: 28px; padding: 48px 32px;
 }
 .splash-logo-img {
-  width: 220px;
+  width: 280px;
   /* WWF logo is black on white — we invert to white on transparent */
   filter: invert(1);
 }
@@ -109,7 +109,7 @@ html, body { height: 100%; overflow: hidden; font-family: var(--font-ui); backgr
   border-bottom: 1px solid var(--gray-border);
   min-height: 90px;
 }
-.home-logo-img { height: 48px; max-width: 180px; object-fit: contain; }
+.home-logo-img { height: 68px; max-width: 220px; object-fit: contain; }
 .home-jep-badge {
   background: var(--black); color: var(--white);
   border-radius: 100px; padding: 5px 12px; font-size: 11px; font-weight: 700;
@@ -171,7 +171,13 @@ html, body { height: 100%; overflow: hidden; font-family: var(--font-ui); backgr
 }
 .feat-card:active { transform: scale(0.95); }
 .feat-capsule-card { border-color: #C9A96E; background: #FBF6F0; }
-.feat-emoji { font-size: 24px; }
+.feat-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--sc, var(--black)); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 16px; font-weight: 800;
+  flex-shrink: 0;
+}
 .feat-name { font-size: 13px; font-weight: 700; color: var(--black); }
 .feat-desc { font-size: 10px; color: var(--gray-mid); line-height: 1.4; }
 .feat-cta { font-size: 11px; font-weight: 700; color: var(--sc, var(--black)); margin-top: 2px; }
@@ -327,7 +333,7 @@ html, body { height: 100%; overflow: hidden; font-family: var(--font-ui); backgr
   display: flex; align-items: center; justify-content: space-between;
   z-index: 2;
 }
-.ob-logo { height: 44px; width: auto; object-fit: contain; filter: invert(1) drop-shadow(0 1px 6px rgba(0,0,0,0.5)); opacity: 0.95; }
+.ob-logo { height: 64px; width: auto; object-fit: contain; filter: invert(1) drop-shadow(0 1px 6px rgba(0,0,0,0.5)); opacity: 0.95; }
 .ob-wwf-badge {
   background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.35);
   border-radius: 100px; padding: 6px 14px;
@@ -504,7 +510,7 @@ html, body { height: 100%; overflow: hidden; font-family: var(--font-ui); backgr
 }
 .back-btn { position: absolute; top: 52px; left: 16px; background: none; border: none; color: white; font-size: 14px; font-weight: 700; font-family: var(--font-ui); cursor: pointer; display: flex; align-items: center; gap: 4px; z-index: 5; text-shadow: 0 1px 8px rgba(0,0,0,0.7); padding: 6px 0; letter-spacing: 0.2px; }
 .stop-hero-content { position: relative; z-index: 1; }
-.stop-hero-logo { height: 30px; width: auto; object-fit: contain; filter: invert(1); opacity: 0.85; margin-bottom: 10px; display: block; }
+.stop-hero-logo { height: 48px; width: auto; object-fit: contain; filter: invert(1); opacity: 0.85; margin-bottom: 10px; display: block; }
 .stop-monument-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.65; margin-bottom: 4px; }
 .stop-species-name { font-family: var(--font-display); font-size: 34px; font-weight: normal; line-height: 1; }
 .stop-slogan { font-size: 12px; font-style: italic; opacity: 0.65; margin-top: 6px; white-space: pre-line; line-height: 1.4; }
@@ -692,7 +698,11 @@ html, body { height: 100%; overflow: hidden; font-family: var(--font-ui); backgr
 @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
 
 /* ─── STOP HERO extras ─────────────────────────────── */
-.stop-hero-emoji { font-size: 28px; margin-bottom: 4px; }
+.stop-hero-species-img {
+  width: 80px; height: 80px; object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+  margin-bottom: 6px; display: block;
+}
 .stop-hero-monument { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; opacity: 0.6; margin-bottom: 3px; }
 .stop-hero-species { font-family: var(--font-display); font-size: 32px; font-weight: normal; line-height: 1; margin-bottom: 4px; }
 .stop-hero-slogan { font-size: 12px; font-style: italic; opacity: 0.65; white-space: pre-line; line-height: 1.45; }
@@ -703,8 +713,11 @@ html, body { height: 100%; overflow: hidden; font-family: var(--font-ui); backgr
 .tabs-content { flex: 1; }
 
 /* ─── PHOTO TAB extras ─────────────────────────────── */
-.photo-species-header { display: flex; align-items: center; gap: 10px; padding: 4px 0; }
-.photo-species-emoji { font-size: 28px; }
+.photo-species-header { display: flex; align-items: center; gap: 12px; padding: 4px 0; }
+.photo-species-img {
+  width: 52px; height: 52px; object-fit: contain; flex-shrink: 0;
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.15));
+}
 .photo-species-name { font-family: var(--font-display); font-size: 20px; font-weight: normal; color: var(--sc, var(--black)); }
 .photo-fact { font-size: 14px; line-height: 1.7; color: #333; background: var(--sc-light, var(--off-white)); border-radius: var(--radius-sm); padding: 16px; border-left: 3px solid var(--sc, var(--black)); }
 .photo-booth-btn { display: block; padding: 14px 22px; border-radius: 100px; font-size: 15px; font-weight: 700; font-family: var(--font-ui); border: none; cursor: pointer; text-align: center; width: 100%; }
@@ -1055,6 +1068,42 @@ html, body { height: 100%; overflow: hidden; font-family: var(--font-ui); backgr
   color: rgba(255,255,255,0.85); text-shadow: 0 1px 6px rgba(0,0,0,0.8);
 }
 
+/* ─── SPECIES ILLUSTRATION IMAGES ─────────────────────────────── */
+.quiz-intro-species-img {
+  width: 120px; height: 120px; object-fit: contain; display: block;
+  margin: 0 auto 4px;
+  filter: drop-shadow(0 2px 10px rgba(0,0,0,0.12));
+}
+.wwf-species-img {
+  width: 100%; max-height: 180px; object-fit: contain; display: block;
+  border-radius: var(--radius-sm);
+  filter: drop-shadow(0 2px 10px rgba(0,0,0,0.1));
+  margin-bottom: 8px;
+}
+.final-species-img {
+  width: 140px; height: 140px; object-fit: contain; display: block;
+  margin: 0 auto 12px;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.15));
+}
+.map-card-species-img {
+  width: 64px; height: 64px; object-fit: contain; flex-shrink: 0;
+  filter: drop-shadow(0 1px 6px rgba(0,0,0,0.12));
+}
+
+/* ─── SCORE MEDAL ─────────────────────────────── */
+.score-medal {
+  width: 72px; height: 72px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; font-weight: 800; font-family: var(--font-display);
+  margin: 0 auto;
+}
+.score-medal.medal-gold   { background: #FFC200; color: #fff; box-shadow: 0 4px 20px rgba(255,194,0,0.4); }
+.score-medal.medal-gold::before   { content: '1'; }
+.score-medal.medal-silver { background: #C0C0C0; color: #fff; box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+.score-medal.medal-silver::before { content: '2'; }
+.score-medal.medal-bronze { background: #CD7F32; color: #fff; box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+.score-medal.medal-bronze::before { content: '3'; }
+
 /* ═══════════════════════════════════════════════════════════════
    QUIZ INTRO SCREEN
 ═══════════════════════════════════════════════════════════════ */
@@ -1142,10 +1191,15 @@ html, body { height: 100%; overflow: hidden; font-family: var(--font-ui); backgr
   color: rgba(255,255,255,0.65);
   transition: background var(--t), color var(--t);
 }
-.capsule-lock-item .lock-check { font-size: 15px; width: 20px; flex-shrink: 0; }
-.capsule-lock-item .lock-check::before { content: '🔒'; }
+.capsule-lock-item .lock-check {
+  width: 20px; height: 20px; flex-shrink: 0; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.15); font-size: 11px; font-weight: 800; color: rgba(255,255,255,0.5);
+}
+.capsule-lock-item .lock-check::before { content: '\2715'; }
 .capsule-lock-item.unlocked { background: rgba(76,175,80,0.15); color: #A5D6A7; }
-.capsule-lock-item.unlocked .lock-check::before { content: '✅'; }
+.capsule-lock-item.unlocked .lock-check { background: #4CAF50; color: #fff; }
+.capsule-lock-item.unlocked .lock-check::before { content: '\2713'; }
 .capsule-teaser-btn { flex-shrink: 0; }
 .capsule-teaser-btn:disabled { opacity: 0.38; cursor: not-allowed; transform: none !important; }
 
